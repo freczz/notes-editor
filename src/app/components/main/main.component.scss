@@ -1,0 +1,22 @@
+$gap: 20px;
+
+.main {
+  .main__body {
+    margin-top: $gap;
+
+    .main__title {
+      font-size: 36px;
+    }
+
+    .main__items {
+      margin-top: 2 * $gap;
+      display: flex;
+      flex-wrap: wrap;
+      gap: $gap;
+
+      app-main-item {
+        flex: 0 0 calc(25% - $gap);
+      }
+    }
+  }
+}
