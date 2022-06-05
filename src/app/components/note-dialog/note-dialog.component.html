@@ -1,0 +1,92 @@
+<section class="dialog">
+  <h2 class="dialog__title">{{titles.split(',')[0]}}</h2>
+  <form
+    class="dialog__form form"
+    [formGroup]="newNoteForm"
+    (ngSubmit)="submitNote({
+          id: 0,
+          title: newNoteForm.get('title')?.value,
+          description: newNoteForm.get('description')?.value,
+          tags: tags.concat(inputTitleTags).concat(inputDescriptionTags)
+        })"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>title</mat-label>
+      <input
+        matInput
+        type="text"
+        name="title"
+        placeholder="Enter title"
+        formControlName="title"
+        (input)="searchInputTags($event)"
+      />
+      <mat-error
+        *ngIf="
+            newNoteForm.get('title')?.invalid &&
+            newNoteForm.get('title')?.touched"
+      >Please enter your title</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>description</mat-label>
+      <input
+        matInput
+        type="text"
+        name="description"
+        placeholder="Enter description"
+        formControlName="description"
+        (input)="searchInputTags($event)"
+      />
+      <mat-error
+        *ngIf="
+            newNoteForm.get('description')?.invalid &&
+            newNoteForm.get('description')?.touched"
+      >Description is too long</mat-error>
+    </mat-form-field>
+    <div class="form__tags tags">
+      <div class="tags__submit">
+        <mat-form-field appearance="outline">
+          <mat-label>tags</mat-label>
+          <input
+            matInput
+            type="text"
+            name="tags"
+            placeholder="Enter tag title"
+            formControlName="tags"
+            (input)="isTagExist = false"
+          />
+          <mat-error *ngIf="newNoteForm.get('tags')?.errors?.['valid']">
+            This tag is already exists
+          </mat-error>
+          <mat-error *ngIf="newNoteForm.get('tags')?.errors?.['pattern']">
+            The tag is invalid
+          </mat-error>
+        </mat-form-field>
+        <button
+          type="button"
+          mat-flat-button
+          color="primary"
+          (click)="addTag(newNoteForm.get('tags')?.value)"
+        >add</button>
+      </div>
+      <p class="tags__error" *ngIf="isTagExist">
+        This tag is already exists
+      </p>
+      <div class="tags__items">
+        <app-tag-item
+          class="tags__item"
+          *ngFor="let tag of tags.concat(inputTitleTags).concat(inputDescriptionTags)"
+          (delete)="deleteTag($event)"
+          [title]="tag"
+        ></app-tag-item>
+      </div>
+    </div>
+    <div class="form__submit">
+      <button
+        type="submit"
+        (click)="validateFormFields()"
+        mat-flat-button
+        color="primary"
+      >{{titles.split(',')[1]}}</button>
+    </div>
+  </form>
+</section>

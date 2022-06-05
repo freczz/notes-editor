@@ -1,0 +1,33 @@
+<header class="header">
+  <div class="container">
+    <div class="header__body">
+      <div class="header__logo">
+        <img
+          src="assets/svg/logo.svg"
+          alt="logo"
+          draggable="false"
+        >
+      </div>
+      <div class="header__main">
+        <div class="header__new_note">
+          <button
+            mat-raised-button
+            color="success"
+            (click)="openNoteDialog()"
+          >New Note</button>
+        </div>
+        <div class="header__filter">
+          <mat-form-field appearance="legacy">
+            <mat-label>Enter tag</mat-label>
+            <input
+              matInput
+              placeholder="#..."
+              (input)="changeSearchValue($event)"
+            >
+            <mat-hint>Tags filter</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

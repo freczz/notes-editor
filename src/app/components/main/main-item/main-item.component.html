@@ -1,0 +1,9 @@
+<mat-card
+  class="main__item"
+  (click)="openNoteDialog()"
+>
+  <mat-card-header>
+    <mat-card-title>{{card.title}}</mat-card-title>
+    <mat-card-subtitle>{{card.tags.join(', ')}}</mat-card-subtitle>
+  </mat-card-header>
+</mat-card>

@@ -1,0 +1,57 @@
+.dialog {
+  .dialog__title {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+
+  .form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+
+    .tags {
+      .tags__submit {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        button {
+          margin-left: 15px;
+        }
+      }
+
+      .tags__error {
+        text-align: center;
+        color: #f44336;
+        font-size: 75%;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+      }
+
+      .tags__items {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 5px;
+
+        .tags__item {
+          display: flex;
+          flex: 0 1 auto;
+          gap: 3px;
+          background: #d5d5d5;
+          border-radius: 5px;
+          padding: 2px 3px;
+        }
+      }
+    }
+
+    .form__submit {
+      margin-top: 30px;
+
+      button {
+        text-transform: uppercase;
+      }
+    }
+  }
+}
