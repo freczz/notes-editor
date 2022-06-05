@@ -1,6 +1,6 @@
 # NotesEditor
 
-Deploy app: https://freczz-notes-editor.netlify.app/.
+App deploy: https://freczz-notes-editor.netlify.app/. App working with local JSON Server.
 
 ## Development server
 
