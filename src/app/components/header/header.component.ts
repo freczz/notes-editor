@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { INote } from "../../interfaces/interfaces";
-import { HttpService } from "../../services/http.service";
-import { EMPTY_CARD } from "../../constants/constants";
+import { MatDialog } from '@angular/material/dialog';
+import { NoteDialogComponent } from "../note-dialog/note-dialog.component";
+import { DataService } from "../../services/data.service";
+import { EMPTY_CARD, FormTitle } from "../../constants/constants";
 
 @Component({
   selector: 'app-header',
@@ -9,9 +10,18 @@ import { EMPTY_CARD } from "../../constants/constants";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(private http: HttpService) { }
+  constructor(
+    private data: DataService,
+    public dialog: MatDialog,
+  ) { }
 
-  public createNote(): void {
-    this.http.createNote(EMPTY_CARD).subscribe((note: INote): INote => note);
+  public changeSearchValue(e: Event): void {
+    this.data.changeFilterValue((e.target as HTMLInputElement).value);
+  }
+
+  public openNoteDialog(): void {
+    this.data.changeCard(EMPTY_CARD);
+    this.dialog.open(NoteDialogComponent);
+    this.data.changeFormTitle(FormTitle.new);
   }
 }

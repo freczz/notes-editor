@@ -1,0 +1,38 @@
+.dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+
+  .dialog__highlight {
+    background-color: yellow;
+  }
+
+  .dialog__title {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .dialog__description {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+
+  .dialog__tags {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px 10px;
+    max-width: 300px;
+
+    .dialog__tag {
+      font-weight: 700;
+    }
+  }
+
+  .dialog__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}
