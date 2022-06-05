@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BASE_URL } from '../constants/constants';
-import {INote} from "../interfaces/interfaces";
+import { INote } from "../interfaces/interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -27,10 +27,20 @@ export class HttpService {
     });
   }
 
-  public deleteNote(id: number): Observable<INote> {
-    return this.http.delete<INote>(`${BASE_URL}notes?id=${id}`, {
+  public editNote(data: INote, id: number): Observable<INote> {
+    return this.http.put<INote>(`${BASE_URL}notes/${id}`, data, {
       headers: new HttpHeaders({
         'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      })
+    });
+  }
+
+  public deleteNote(id: number): Observable<INote> {
+    return this.http.delete<INote>(`${BASE_URL}notes/${id}`, {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       })
     });
   }

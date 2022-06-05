@@ -1,11 +1,11 @@
 <section class="main">
   <div class="container">
     <div class="main__body">
-      <div class="main__title">Notes</div>
+      <h1 class="main__title">Notes</h1>
       <div class="main__items">
         <app-main-item
           class="main__item"
-          *ngFor="let item of items"
+          *ngFor="let item of items | filter: filterValue"
           [card]="item"
         ></app-main-item>
       </div>
