@@ -75,7 +75,7 @@
         <app-tag-item
           class="tags__item"
           *ngFor="let tag of tags.concat(inputTitleTags).concat(inputDescriptionTags)"
-          (onDeleted)="onDeleted($event)"
+          (delete)="deleteTag($event)"
           [title]="tag"
         ></app-tag-item>
       </div>
