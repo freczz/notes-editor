@@ -1,7 +1,6 @@
 # NotesEditor
 
 Deploy app: https://freczz-notes-editor.netlify.app/.
-Deploy server: http://localhost:3000/.
 
 ## Development server
 
