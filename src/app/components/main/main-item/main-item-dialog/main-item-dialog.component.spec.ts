@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { MatDialog } from "@angular/material/dialog";
 
-import { MainItemDialogComponent } from './main-item-dialog.component';
+import MainItemDialogComponent from './main-item-dialog.component';
 
 describe('MainItemDialogComponent', () => {
   let component: MainItemDialogComponent;
@@ -8,9 +10,12 @@ describe('MainItemDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MainItemDialogComponent ]
-    })
-    .compileComponents();
+      imports: [
+        HttpClientTestingModule,
+      ],
+      declarations: [MainItemDialogComponent],
+      providers: [{ provide: MatDialog, useValue: {} }],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MainItemDialogComponent);
     component = fixture.componentInstance;

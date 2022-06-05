@@ -1,25 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { INote } from "../../../../interfaces/interfaces";
-import { EMPTY_CARD, FormTitle } from "../../../../constants/constants";
-import { DataService } from "../../../../services/data.service";
-import { MatDialog } from "@angular/material/dialog";
-import { NoteDialogComponent } from "../../../note-dialog/note-dialog.component";
+import { MatDialog } from '@angular/material/dialog';
+import { INote } from '../../../../interfaces/interfaces';
+import { EMPTY_CARD, FormTitle } from '../../../../constants/constants';
+import DataService from '../../../../services/data.service';
+import NoteDialogComponent from '../../../note-dialog/note-dialog.component';
+import HttpService from '../../../../services/http.service';
 
 @Component({
   selector: 'app-main-item-dialog',
   templateUrl: './main-item-dialog.component.html',
-  styleUrls: ['./main-item-dialog.component.scss']
+  styleUrls: ['./main-item-dialog.component.scss'],
 })
-export class MainItemDialogComponent implements OnInit {
+export default class MainItemDialogComponent implements OnInit {
   public card: INote = EMPTY_CARD;
 
   constructor(
+    private http: HttpService,
     private data: DataService,
-    private dialog: MatDialog,
-  ) { }
+    private dialog: MatDialog
+  ) {}
 
   public ngOnInit(): void {
-    this.data.currentCard.subscribe((card: INote): INote => this.card = card);
+    this.data.currentCard.subscribe((card: INote): void => {
+      this.card = card;
+    });
   }
 
   public openEditDialog(): void {
@@ -27,7 +31,12 @@ export class MainItemDialogComponent implements OnInit {
     this.data.changeFormTitle(FormTitle.old);
   }
 
-  public close(): void {
-    this.dialog.closeAll();
+  public DeleteNote(): void {
+    this.http.deleteNote(this.card.id).subscribe((): void => {
+      this.http.getNotes().subscribe((notes: INote[]): void => {
+        this.data.changeNotes(notes);
+        this.dialog.closeAll();
+      });
+    });
   }
 }

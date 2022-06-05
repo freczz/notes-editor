@@ -6,14 +6,27 @@ $height: 80px;
   top: -10px;
   background: #3f51b5;
 
+  @media(max-width:(650px)) {
+    height: calc($height - 20px + 20 * ((100vw - 420px) / (650 - 420)));
+    //calc(50px + 10 * ((100vw - 768px) / (1200 - 768)));
+  }
+
   .header__body {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     .header__logo {
+      display: flex;
+      align-items: center;
+
       img {
         height: $height;
+
+        @media(max-width:(650px)) {
+          height: calc($height - 40px + 40 * ((100vw - 420px) / (650 - 420)));
+        }
       }
     }
 
@@ -23,10 +36,40 @@ $height: 80px;
 
       .header__new_note {
         margin: 0 20px;
+
+        ::ng-deep .mat-success {
+          @media(max-width:(650px)) {
+            padding: 0 calc(8px + 8 * ((100vw - 420px) / (650 - 420)));
+            line-height: calc(28px + 8 * ((100vw - 420px) / (650 - 420)));
+          }
+        }
       }
 
       .header__filter {
+        ::ng-deep .mat-form-field {
+          width: 160px;
+          position: relative;
 
+          @media(max-width:(650px)) {
+            width: calc(80px + 80 * ((100vw - 420px) / (650 - 420)));
+            bottom: calc(5px - 5 * ((100vw - 420px) / (650 - 420)));
+          }
+
+          .mat-form-field-label,
+          .mat-form-field-required-marker {
+            color: #000;
+          }
+          .mat-form-field-underline {
+            background-color: rgba(#000, 0.6);
+          }
+          .mat-form-field-ripple {
+            background-color: #000;
+          }
+
+          .mat-form-field-hint-spacer {
+            flex: 0 0 0;
+          }
+        }
       }
     }
   }

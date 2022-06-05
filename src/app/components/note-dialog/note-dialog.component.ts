@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { INote } from "../../interfaces/interfaces";
-import { HttpService } from "../../services/http.service";
-import { DataService } from "../../services/data.service";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { EMPTY_CARD, FieldsNames, MAX_LENGTH, TAG_PATTERN } from 'src/app/constants/constants';
-import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  EMPTY_CARD,
+  FieldsNames,
+  MAX_LENGTH,
+  TAG_PATTERN,
+} from 'src/app/constants/constants';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { INote } from '../../interfaces/interfaces';
+import HttpService from '../../services/http.service';
+import DataService from '../../services/data.service';
 
 @Component({
   selector: 'app-note-dialog',
   templateUrl: './note-dialog.component.html',
-  styleUrls: ['./note-dialog.component.scss']
+  styleUrls: ['./note-dialog.component.scss'],
 })
-export class NoteDialogComponent implements OnInit  {
+export default class NoteDialogComponent implements OnInit {
   public card: INote = EMPTY_CARD;
 
   public titles: string = '';
@@ -34,20 +39,26 @@ export class NoteDialogComponent implements OnInit  {
     private http: HttpService,
     private data: DataService,
     private dialog: MatDialog,
-    private dialogRef: MatDialogRef<NoteDialogComponent>,
-  ) { }
+    private dialogRef: MatDialogRef<NoteDialogComponent>
+  ) {}
 
   public ngOnInit(): void {
     this.newNoteForm.get('tags')?.patchValue('#');
-    this.data.currentFormTitle.subscribe((title: string): string => this.titles = title);
+    this.data.currentFormTitle.subscribe((title: string): void => {
+      this.titles = title;
+    });
     this.data.currentCard.subscribe((card: INote): void => {
       if (card !== EMPTY_CARD) {
         this.card = card;
         this.newNoteForm.get('title')?.patchValue(this.card.title);
         this.newNoteForm.get('description')?.patchValue(this.card.description);
         this.tags = this.card.tags;
-        this.getInputTags(FieldsNames.title, [...this.card.title.matchAll(/#[^.# ]+/g)]);
-        this.getInputTags(FieldsNames.description, [...this.card.description.matchAll(/#[^.# ]+/g)]);
+        this.getInputTags(FieldsNames.title, [
+          ...this.card.title.matchAll(/#[^.# ]+/g),
+        ]);
+        this.getInputTags(FieldsNames.description, [
+          ...this.card.description.matchAll(/#[^.# ]+/g),
+        ]);
       }
     });
   }
@@ -65,17 +76,22 @@ export class NoteDialogComponent implements OnInit  {
 
   public getInputTags(fieldName: string, inputTags: RegExpMatchArray[]): void {
     const tags: string[] = [];
-    for (let i = 0; i < inputTags.length; i++) {
+    for (let i = 0; i < inputTags.length; i += 1) {
       tags.push(inputTags[i][0]);
     }
-    fieldName === FieldsNames.title
-      ? this.inputTitleTags = tags
-      : this.inputDescriptionTags = tags;
+
+    if (fieldName === FieldsNames.title) {
+      this.inputTitleTags = tags;
+    } else {
+      this.inputDescriptionTags = tags;
+    }
   }
 
   public searchInputTags(e: Event): void {
     const element = e.target as HTMLInputElement;
-    const inputTags: RegExpMatchArray[] = [...element.value.matchAll(/#[^.# ]+/g)];
+    const inputTags: RegExpMatchArray[] = [
+      ...element.value.matchAll(/#[^.# ]+/g),
+    ];
     if (element.name === FieldsNames.title) {
       this.getInputTags(FieldsNames.title, inputTags);
     }
@@ -84,7 +100,7 @@ export class NoteDialogComponent implements OnInit  {
     }
   }
 
-  public onDeleted(tagTitle: string): void {
+  public deleteTag(tagTitle: string): void {
     this.tags.splice(this.tags.indexOf(tagTitle), 1);
   }
 
@@ -100,8 +116,11 @@ export class NoteDialogComponent implements OnInit  {
   }
 
   public submitNote(note: INote): void {
-    if (this.newNoteForm.get('title')?.valid && this.newNoteForm.get('description')?.valid) {
-      if (this.card == EMPTY_CARD) {
+    if (
+      this.newNoteForm.get('title')?.valid &&
+      this.newNoteForm.get('description')?.valid
+    ) {
+      if (this.card === EMPTY_CARD) {
         this.http.createNote(note).subscribe((): void => {
           this.getNotes();
         });

@@ -1,4 +1,4 @@
-import { INote } from "../interfaces/interfaces";
+import { INote } from '../interfaces/interfaces';
 
 export const BASE_URL: string = 'http://localhost:3000/';
 
@@ -11,7 +11,7 @@ export const EMPTY_CARD: INote = {
   title: '',
   description: '',
   tags: [],
-}
+};
 
 export enum FormTitle {
   new = 'create new note,create',
@@ -20,5 +20,5 @@ export enum FormTitle {
 
 export enum FieldsNames {
   title = 'title',
-  description = 'description'
+  description = 'description',
 }

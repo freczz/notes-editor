@@ -1,21 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-tag-item',
   templateUrl: './tag-item.component.html',
-  styleUrls: ['./tag-item.component.scss']
+  styleUrls: ['./tag-item.component.scss'],
 })
-export class TagItemComponent implements OnInit {
+export default class TagItemComponent {
   @Input() title: string = '';
 
-  @Output() onDeleted = new EventEmitter<string>()
-
-  constructor() { }
-
-  public ngOnInit(): void {
-  }
+  @Output() delete = new EventEmitter<string>();
 
   public deleteTag(): void {
-    this.onDeleted.emit(this.title);
+    this.delete.emit(this.title);
   }
 }

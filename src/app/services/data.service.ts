@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable } from 'rxjs';
 import { INote } from '../interfaces/interfaces';
-import { EMPTY_CARD } from "../constants/constants";
+import { EMPTY_CARD } from '../constants/constants';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DataService {
+export default class DataService {
   private notes: BehaviorSubject<INote[]> = new BehaviorSubject([] as INote[]);
 
   private formTitle: BehaviorSubject<string> = new BehaviorSubject('');
@@ -21,7 +21,8 @@ export class DataService {
 
   public currentCard: Observable<INote> = this.card.asObservable();
 
-  public currentFilterValue: Observable<string> = this.filterValue.asObservable();
+  public currentFilterValue: Observable<string> =
+    this.filterValue.asObservable();
 
   public changeNotes(notes: INote[]): void {
     this.notes.next(notes);
