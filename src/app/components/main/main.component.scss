@@ -38,6 +38,18 @@ $gap: 20px;
         flex: 0 0 calc(25% - $gap);
         overflow: hidden;
         display: flex;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 25px;
+          height: 100%;
+          background: linear-gradient(to right, transparent, #fff);
+        }
+
 
         @media(max-width:(1000px)) {
           flex: 0 0 calc(100% / 3 - $gap);
