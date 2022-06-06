@@ -21,6 +21,8 @@ export default class NoteDialogComponent implements OnInit {
 
   public titles: string = '';
 
+  public resultTags: string[] = [];
+
   public tags: string[] = [];
 
   public inputTitleTags: string[] = [];
@@ -59,19 +61,34 @@ export default class NoteDialogComponent implements OnInit {
         this.getInputTags(FieldsNames.description, [
           ...this.card.description.matchAll(/#[^.# ]+/g),
         ]);
+        this.resultTags = Array.from(
+          new Set(
+            this.tags
+              .concat(this.inputTitleTags)
+              .concat(this.inputDescriptionTags)
+          )
+        );
       }
     });
   }
 
   public addTag(title: string): void {
     if (this.newNoteForm.get('tags')?.valid) {
-      this.isTagExist = this.tags.includes(title);
+      this.isTagExist = this.tags
+        .concat(this.inputTitleTags)
+        .concat(this.inputDescriptionTags)
+        .includes(title);
       if (this.newNoteForm.get('tags')?.value && !this.isTagExist) {
         this.tags.push(title);
         this.newNoteForm.get('tags')?.patchValue('#');
         this.newNoteForm.get('tags')?.markAsUntouched();
       }
     }
+    this.resultTags = Array.from(
+      new Set(
+        this.tags.concat(this.inputTitleTags).concat(this.inputDescriptionTags)
+      )
+    );
   }
 
   public getInputTags(fieldName: string, inputTags: RegExpMatchArray[]): void {
@@ -79,12 +96,19 @@ export default class NoteDialogComponent implements OnInit {
     for (let i = 0; i < inputTags.length; i += 1) {
       tags.push(inputTags[i][0]);
     }
-
     if (fieldName === FieldsNames.title) {
       this.inputTitleTags = tags;
     } else {
       this.inputDescriptionTags = tags;
     }
+    this.resultTags = Array.from(
+      new Set(
+        tags
+          .concat(this.tags)
+          .concat(this.inputTitleTags)
+          .concat(this.inputDescriptionTags)
+      )
+    );
   }
 
   public searchInputTags(e: Event): void {
@@ -101,7 +125,7 @@ export default class NoteDialogComponent implements OnInit {
   }
 
   public deleteTag(tagTitle: string): void {
-    this.tags.splice(this.tags.indexOf(tagTitle), 1);
+    this.resultTags.splice(this.resultTags.indexOf(tagTitle), 1);
   }
 
   public validateFormFields(): void {
@@ -127,6 +151,7 @@ export default class NoteDialogComponent implements OnInit {
       } else {
         this.http.editNote(note, this.card.id).subscribe((): void => {
           this.getNotes();
+          this.data.changeCard({ ...note, id: this.card.id });
         });
       }
       this.dialogRef.close();
