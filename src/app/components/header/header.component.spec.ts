@@ -4,8 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import HeaderComponent from './header.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -14,11 +14,7 @@ describe('HeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HeaderComponent],
-      imports: [
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatInputModule,
-      ],
+      imports: [BrowserAnimationsModule, MatButtonModule, MatInputModule],
       providers: [{ provide: MatDialog, useValue: {} }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

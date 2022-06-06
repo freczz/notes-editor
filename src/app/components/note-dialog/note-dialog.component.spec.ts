@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import NoteDialogComponent from './note-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import NoteDialogComponent from './note-dialog.component';
 
 describe('NewNoteDialogComponent', () => {
   let component: NoteDialogComponent;
@@ -21,14 +21,13 @@ describe('NewNoteDialogComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         BrowserAnimationsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
       ],
       declarations: [NoteDialogComponent],
       providers: [
         { provide: MatDialog, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
       ],
-
     }).compileComponents();
 
     fixture = TestBed.createComponent(NoteDialogComponent);
