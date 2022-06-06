@@ -7,7 +7,7 @@
           id: 0,
           title: newNoteForm.get('title')?.value,
           description: newNoteForm.get('description')?.value,
-          tags: tags.concat(inputTitleTags).concat(inputDescriptionTags)
+          tags: resultTags
         })"
   >
     <mat-form-field appearance="outline">
@@ -74,7 +74,7 @@
       <div class="tags__items">
         <app-tag-item
           class="tags__item"
-          *ngFor="let tag of tags.concat(inputTitleTags).concat(inputDescriptionTags)"
+          *ngFor="let tag of resultTags"
           (delete)="deleteTag($event)"
           [title]="tag"
         ></app-tag-item>

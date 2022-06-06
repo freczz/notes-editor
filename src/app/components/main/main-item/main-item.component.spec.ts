@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { MatDialog } from "@angular/material/dialog";
-import { MatCardModule } from "@angular/material/card";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatDialog } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 
 import MainItemComponent from './main-item.component';
 
@@ -11,10 +11,7 @@ describe('MainItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        MatCardModule
-      ],
+      imports: [HttpClientTestingModule, MatCardModule],
       declarations: [MainItemComponent],
       providers: [{ provide: MatDialog, useValue: {} }],
     }).compileComponents();

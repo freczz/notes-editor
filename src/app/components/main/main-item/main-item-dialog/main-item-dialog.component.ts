@@ -31,7 +31,7 @@ export default class MainItemDialogComponent implements OnInit {
     this.data.changeFormTitle(FormTitle.old);
   }
 
-  public DeleteNote(): void {
+  public deleteNote(): void {
     this.http.deleteNote(this.card.id).subscribe((): void => {
       this.http.getNotes().subscribe((notes: INote[]): void => {
         this.data.changeNotes(notes);
