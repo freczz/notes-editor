@@ -91,6 +91,11 @@ export default class NoteDialogComponent implements OnInit {
     );
   }
 
+  public addTagWithEnter(e: Event): void {
+    e.preventDefault();
+    this.addTag((e.target as HTMLInputElement).value);
+  }
+
   public getInputTags(fieldName: string, inputTags: RegExpMatchArray[]): void {
     const tags: string[] = [];
     for (let i = 0; i < inputTags.length; i += 1) {
@@ -156,5 +161,15 @@ export default class NoteDialogComponent implements OnInit {
       }
       this.dialogRef.close();
     }
+  }
+
+  public submitNoteWithEnter(e: Event): void {
+    e.preventDefault();
+    this.submitNote({
+      id: 0,
+      title: this.newNoteForm.get('title')?.value,
+      description: this.newNoteForm.get('description')?.value,
+      tags: this.resultTags
+    });
   }
 }
