@@ -19,6 +19,7 @@
         placeholder="Enter title"
         formControlName="title"
         (input)="searchInputTags($event)"
+        (keydown.enter)="submitNoteWithEnter($event)"
       />
       <mat-error
         *ngIf="
@@ -35,6 +36,7 @@
         placeholder="Enter description"
         formControlName="description"
         (input)="searchInputTags($event)"
+        (keydown.enter)="submitNoteWithEnter($event)"
       />
       <mat-error
         *ngIf="
@@ -53,6 +55,7 @@
             placeholder="Enter tag title"
             formControlName="tags"
             (input)="isTagExist = false"
+            (keydown.enter)="addTagWithEnter($event)"
           />
           <mat-error *ngIf="newNoteForm.get('tags')?.errors?.['valid']">
             This tag is already exists

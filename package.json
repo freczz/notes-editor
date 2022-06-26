@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "lint--fix": "ng lint --fix",
-    "server": "json-server --watch server/db.json"
+    "server": "json-server --watch db.json"
   },
   "private": true,
   "dependencies": {
