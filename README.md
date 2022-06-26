@@ -1,6 +1,7 @@
 # NotesEditor
 
-App deploy: https://freczz-notes-editor.netlify.app/. App working with local JSON Server.
+App deploy: https://freczz-notes-editor-angular.netlify.app/.
+JSON Server deploy: https://notes-editor-server.herokuapp.com/api/notes.
 
 ## Development server
 
@@ -13,7 +14,3 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 ## Running unit tests
 
 Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## JSON Server
-
-Run `npm run server` for a json server. Navigate to `http://localhost:3000/`.
