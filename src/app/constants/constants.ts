@@ -1,6 +1,6 @@
 import { INote } from '../interfaces/interfaces';
 
-export const BASE_URL: string = 'http://localhost:3000/';
+export const BASE_URL: string = 'https://notes-editor-server.herokuapp.com/api/';
 
 export const MAX_LENGTH: number = 256;
 
